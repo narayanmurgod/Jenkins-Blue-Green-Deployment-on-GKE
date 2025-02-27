@@ -11,6 +11,7 @@ pipeline {
         IMAGE_NAME = "thenameisnani/bankapp"
         TAG = "${params.DOCKER_TAG}"
         SCANNER_HOME= tool 'sonar-scanner'
+        TRIVY_DISABLE_VEX_NOTICE: "true"
     }
 
     stages {
@@ -31,7 +32,6 @@ pipeline {
         }
         
         stage('Trivy Scan') {
-            TRIVY_DISABLE_VEX_NOTICE: "true"
             steps { sh "trivy image --format table ${IMAGE_NAME}:${TAG}" }
         }
         
