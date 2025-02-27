@@ -11,6 +11,9 @@ pipeline {
         IMAGE_NAME = "thenameisnani/python-app"
         TAG = "${params.DOCKER_TAG}"
         SCANNER_HOME = tool 'sonar-scanner'
+        location = "us-central1"
+        CLUSTER_NAME = "main-cluster"
+        PROJECT_ID = "cts01-shreyashree"
     }
 
     stages {
@@ -60,7 +63,7 @@ pipeline {
                         'app-deployment-blue.yml' : 
                         'app-deployment-green.yml'
 
-                    sh "gcloud container clusters get-credentials main-cluster --region us-central1 --project your-project-id"
+                    sh "gcloud container clusters get-credentials ${CLUSTER_NAME} --location ${location} --project ${PROJECT_ID}"
                     sh "kubectl apply -f ${deploymentFile}"
                     sh "kubectl apply -f mysql-ds.yml"
                     sh "kubectl apply -f bankapp-service.yml"
