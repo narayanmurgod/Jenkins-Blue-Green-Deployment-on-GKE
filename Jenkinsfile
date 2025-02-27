@@ -66,11 +66,9 @@ pipeline {
             when { expression { return params.SWITCH_TRAFFIC } }
             steps {
                 script {
-                    withKubeConfig(...) {
                         sh """
                             kubectl patch service bankapp-service -p '{"spec":{"selector":{"version":"${params.DEPLOY_ENV}"}}}'
-                        """
-                    }
+                        """          
                 }
             }
         }
