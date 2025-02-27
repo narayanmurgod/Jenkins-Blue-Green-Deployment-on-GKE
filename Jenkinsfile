@@ -75,10 +75,8 @@ pipeline {
         
         stage('Verify') {
             steps {
-                withKubeConfig(...) {
                     sh "kubectl get pods -l version=${params.DEPLOY_ENV}"
                     sh "kubectl get svc bankapp-service"
-                }
             }
         }
     }
