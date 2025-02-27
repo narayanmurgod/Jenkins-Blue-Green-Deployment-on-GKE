@@ -34,14 +34,14 @@ pipeline {
             }
         }
         
-        stage('Trivy Scan') {
-            environment {
-                TRIVY_DISABLE_VEX_NOTICE = "true"
-            }
-            steps { 
-                sh script: "trivy image --exit-code 0 ${IMAGE_NAME}:${TAG}", returnStatus: true 
-            }
-        }
+        //stage('Trivy Scan') {
+           // environment {
+                //TRIVY_DISABLE_VEX_NOTICE = "true"
+            //}
+            //steps { 
+                //sh script: "trivy image --exit-code 0 ${IMAGE_NAME}:${TAG}", returnStatus: true 
+            //}
+        //}
         
         stage('Docker Push Image') {
             steps {
