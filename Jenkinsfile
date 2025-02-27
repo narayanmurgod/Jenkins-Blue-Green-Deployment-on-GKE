@@ -8,7 +8,7 @@ pipeline {
     }
     
     environment {
-        IMAGE_NAME = "thenameisnani/bankapp"
+        IMAGE_NAME = "your-dockerhub-username/python-app"
         TAG = "${params.DOCKER_TAG}"
         SCANNER_HOME = tool 'sonar-scanner'
     }
@@ -16,14 +16,14 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps { 
-                git branch: 'main', url: 'https://github.com/narayanmurgod/Jenkins-Blue-Green-Deployment-on-GKE.git' 
+                git branch: 'main', url: 'https://github.com/your-username/your-python-repo.git' 
             }
         }
         
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=nodejsmysql"
+                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=python-app"
                 }
             }
         }
@@ -36,12 +36,12 @@ pipeline {
         
         stage('Trivy Scan') {
             environment {
-                TRIVY_DISABLE_VEX_NOTICE = "true"  // Disable VEX notices
+                TRIVY_DISABLE_VEX_NOTICE = "true"
             }
             steps { 
                 sh "trivy image --format table ${IMAGE_NAME}:${TAG}" 
             }
-        } // Properly closed this stage
+        }
         
         stage('Docker Push Image') {
             steps {
@@ -56,13 +56,11 @@ pipeline {
         stage('Deploy to GKE') {
             steps {
                 script {
-                    // Determine the deployment file based on the environment
                     def deploymentFile = params.DEPLOY_ENV == 'blue' ? 
                         'app-deployment-blue.yml' : 
                         'app-deployment-green.yml'
 
-                    // Authenticate with GKE and apply Kubernetes manifests
-                    sh "gcloud container clusters get-credentials main-cluster --region us-central1 --project cts01-shreyashree"
+                    sh "gcloud container clusters get-credentials main-cluster --region us-central1 --project your-project-id"
                     sh "kubectl apply -f ${deploymentFile}"
                     sh "kubectl apply -f mysql-ds.yml"
                     sh "kubectl apply -f bankapp-service.yml"

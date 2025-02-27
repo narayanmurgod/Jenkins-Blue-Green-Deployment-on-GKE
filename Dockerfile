@@ -1,13 +1,20 @@
-FROM eclipse-temurin:17-jdk-alpine
+# Use official Python base image
+FROM python:3.9-slim
 
-EXPOSE 8080
+# Set working directory
+WORKDIR /app
 
-ENV APP_HOME=/usr/src/app
+# Copy requirements first to leverage Docker cache
+COPY requirements.txt .
 
-WORKDIR $APP_HOME
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all JAR files to the app directory
-COPY *.jar app.jar
+# Copy application code
+COPY . .
 
-# Run the first JAR file found in the directory
-CMD ["sh", "-c", "java -jar $(ls app.jar)"]
+# Expose port
+EXPOSE 5000
+
+# Command to run the application
+CMD ["python", "app.py"]
