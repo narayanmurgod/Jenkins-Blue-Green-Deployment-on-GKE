@@ -11,7 +11,7 @@ pipeline {
         IMAGE_NAME = "thenameisnani/bankapp"
         TAG = "${params.DOCKER_TAG}"
         SCANNER_HOME= tool 'sonar-scanner'
-        TRIVY_DISABLE_VEX_NOTICE: "true"
+    "
     }
 
     stages {
@@ -32,8 +32,13 @@ pipeline {
         }
         
         stage('Trivy Scan') {
-            steps { sh "trivy image --format table ${IMAGE_NAME}:${TAG}" }
-        }
+            environment {
+               TRIVY_DISABLE_VEX_NOTICE = "true"  // Disable VEX notices
+            }
+            steps { 
+               sh "trivy image --format table ${IMAGE_NAME}:${TAG}" 
+            }
+    }
         
         stage('Docker Push Image') {
             steps {
