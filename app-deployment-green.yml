@@ -19,14 +19,8 @@ spec:
         image: thenameisnani/python-app:green
         ports:
         - containerPort: 5000
-        env:
-        - name: MYSQL_HOST
-          value: "mysql-service"
-        - name: MYSQL_USER
-          value: "root"
-        - name: MYSQL_PASSWORD
-          value: "password"
         resources:
           limits:
             memory: "512Mi"
             cpu: "500m"
+        

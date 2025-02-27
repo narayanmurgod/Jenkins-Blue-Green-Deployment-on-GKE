@@ -66,7 +66,7 @@ pipeline {
 
                     sh "gcloud container clusters get-credentials ${CLUSTER_NAME} --location ${location} --project ${PROJECT_ID}"
                     sh "kubectl apply -f ${deploymentFile}"
-                    sh "kubectl apply -f mysql-ds.yml"
+                    //sh "kubectl apply -f mysql-ds.yml"
                     sh "kubectl apply -f bankapp-service.yml"
                 }
             }
