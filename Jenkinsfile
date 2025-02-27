@@ -39,7 +39,7 @@ pipeline {
                 TRIVY_DISABLE_VEX_NOTICE = "true"
             }
             steps { 
-                sh "trivy image --format table ${IMAGE_NAME}:${TAG}" 
+                sh script: "trivy image --exit-code 0 ${IMAGE_NAME}:${TAG}", returnStatus: true 
             }
         }
         
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh "docker push ${IMAGE_NAME}:${TAG}"
+                        sh "docker push thenameisnani/${IMAGE_NAME}:${TAG}"
                     }
                 }
             }
