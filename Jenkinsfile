@@ -31,6 +31,7 @@ pipeline {
         }
         
         stage('Trivy Scan') {
+            TRIVY_DISABLE_VEX_NOTICE: "true"
             steps { sh "trivy image --format table ${IMAGE_NAME}:${TAG}" }
         }
         
