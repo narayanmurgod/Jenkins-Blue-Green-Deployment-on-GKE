@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh "docker push thenameisnani/${IMAGE_NAME}:${TAG}"
+                        sh "docker push ${IMAGE_NAME}:${TAG}"
                     }
                 }
             }
