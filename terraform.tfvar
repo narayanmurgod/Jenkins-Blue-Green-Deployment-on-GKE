@@ -1,0 +1,2 @@
+project_id = "cts01-shreyashree"  # Replace with your actual GCP project ID
+region     = "us-central1"          # Can be changed to your preferred region
