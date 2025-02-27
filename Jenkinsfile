@@ -45,23 +45,21 @@ pipeline {
         }
         
         stage('Deploy to GKE') {
-            steps {
-                script {
-                    def deploymentFile = params.DEPLOY_ENV == 'blue' ? 
-                        'app-deployment-blue.yml' : 
-                        'app-deployment-green.yml'
+    steps {
+        script {
+            // Determine the deployment file based on the environment
+            def deploymentFile = params.DEPLOY_ENV == 'blue' ? 
+                'app-deployment-blue.yml' : 
+                'app-deployment-green.yml'
 
-                    withKubeConfig(
-                        credentialsId: 'gcp-service-account-json',
-                        clusterName: 'main-cluster',
-                    ) {
-                        sh "gcloud container clusters get-credentials main-cluster --region us-central1 --project cts01-shreyashree"
-                        sh "kubectl apply -f ${deploymentFile}"
-                        sh "kubectl apply -f mysql-ds.yml"
-                        sh "kubectl apply -f bankapp-service.yml"
-                    }
-                }
-            }
+            // Authenticate with GKE and apply Kubernetes manifests
+            sh "gcloud container clusters get-credentials main-cluster --region us-central1 --project cts01-shreyashree"
+            sh "kubectl apply -f ${deploymentFile}"
+            sh "kubectl apply -f mysql-ds.yml"
+            sh "kubectl apply -f bankapp-service.yml"
+        }
+    }
+
         }
         
         stage('Switch Traffic') {
