@@ -81,10 +81,6 @@ module "gke" {
           }
   ]
 
-  node_pools_tags = {
-    "primary-node-pool"   = ["primary-pool"]
-    "secondary-node-pool" = ["secondary-pool"]
-  }
 
   depends_on = [
     module.vpc
