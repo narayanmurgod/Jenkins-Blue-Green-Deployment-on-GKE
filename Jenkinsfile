@@ -8,7 +8,7 @@ pipeline {
     }
     
     environment {
-        IMAGE_NAME = "your-dockerhub-username/python-app"
+        IMAGE_NAME = "thenameisnani/python-app"
         TAG = "${params.DOCKER_TAG}"
         SCANNER_HOME = tool 'sonar-scanner'
     }
@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps { 
-                git branch: 'main', url: 'https://github.com/your-username/your-python-repo.git' 
+                git branch: 'main', url: 'https://github.com/narayanmurgod/Jenkins-Blue-Green-Deployment-on-GKE.git' 
             }
         }
         
