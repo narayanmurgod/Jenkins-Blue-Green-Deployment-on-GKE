@@ -14,6 +14,7 @@ pipeline {
         location = "us-central1"
         CLUSTER_NAME = "main-cluster"
         PROJECT_ID = "cts01-shreyashree"
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('SS-default-SA')
     }
 
     stages {
