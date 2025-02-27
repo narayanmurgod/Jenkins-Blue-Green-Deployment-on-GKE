@@ -11,7 +11,6 @@ pipeline {
         IMAGE_NAME = "thenameisnani/bankapp"
         TAG = "${params.DOCKER_TAG}"
         SCANNER_HOME= tool 'sonar-scanner'
-    "
     }
 
     stages {
