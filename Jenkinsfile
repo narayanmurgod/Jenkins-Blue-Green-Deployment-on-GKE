@@ -13,8 +13,8 @@ pipeline {
         SCANNER_HOME = tool 'sonar-scanner'
         location = "us-central1"
         CLUSTER_NAME = "main-cluster"
-        PROJECT_ID = "cts01-shreyashree"
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('SS-default-SA')
+        PROJECT_ID = "cts05-murgod"
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('default-sa-key')
     }
 
     stages {
@@ -66,7 +66,6 @@ pipeline {
 
                     sh "gcloud container clusters get-credentials ${CLUSTER_NAME} --location ${location} --project ${PROJECT_ID}"
                     sh "kubectl apply -f ${deploymentFile}"
-                    //sh "kubectl apply -f mysql-ds.yml"
                     sh "kubectl apply -f bankapp-service.yml"
                 }
             }
