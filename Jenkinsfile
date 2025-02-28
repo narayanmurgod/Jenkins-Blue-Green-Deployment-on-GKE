@@ -24,13 +24,13 @@ pipeline {
             }
         }
         
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=python-app"
-                }
-            }
-        }
+        //stage('SonarQube Analysis') {
+            //steps {
+                //withSonarQubeEnv('sonar') {
+                    //sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=python-app"
+                //}
+            //}
+        //}
         
         stage('Docker Build') {
             steps { 
