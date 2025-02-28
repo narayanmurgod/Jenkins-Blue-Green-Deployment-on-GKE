@@ -82,11 +82,6 @@ pipeline {
             }
         }
         
-        stage('Verify') {
-            steps {
-                sh "kubectl get pods -l version=${params.DEPLOY_ENV}"
-                sh "kubectl get svc colour-service"
-            }
-        }
+    
     }
 }
