@@ -66,7 +66,7 @@ pipeline {
 
                     sh "gcloud container clusters get-credentials ${CLUSTER_NAME} --location ${location} --project ${PROJECT_ID}"
                     sh "kubectl apply -f ${deploymentFile}"
-                    sh "kubectl apply -f bankapp-service.yml"
+                    sh "kubectl apply -f colour-service.yml"
                 }
             }
         }
@@ -76,7 +76,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                        kubectl patch service bankapp-service -p '{"spec":{"selector":{"version":"${params.DEPLOY_ENV}"}}}'
+                        kubectl patch service colour-service -p '{"spec":{"selector":{"version":"${params.DEPLOY_ENV}"}}}'
                     """          
                 }
             }
@@ -85,7 +85,7 @@ pipeline {
         stage('Verify') {
             steps {
                 sh "kubectl get pods -l version=${params.DEPLOY_ENV}"
-                sh "kubectl get svc bankapp-service"
+                sh "kubectl get svc colour-service"
             }
         }
     }
