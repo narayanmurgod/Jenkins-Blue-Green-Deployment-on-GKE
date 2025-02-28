@@ -10,7 +10,7 @@ pipeline {
     environment {
         IMAGE_NAME = "thenameisnani/python-app"
         TAG = "${params.DOCKER_TAG}"
-        SCANNER_HOME = tool 'sonar-scanner'
+        //SCANNER_HOME = tool 'sonar-scanner'
         location = "us-central1"
         CLUSTER_NAME = "main-cluster"
         PROJECT_ID = "cts05-murgod"
