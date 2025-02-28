@@ -31,17 +31,7 @@ pipeline {
                 //}
             //}
         //}
-        stage('Setup Docker Access') {
-            steps {
-                sh '''
-                    echo "Current User: $(whoami)"
-                    sudo usermod -aG docker $(whoami)
-                    echo "Added $(whoami) to the docker group."
-                    newgrp docker
-                '''
-            }
-        }
-
+        
         stage('Docker Build') {
             steps { 
                 sh "docker build -t ${IMAGE_NAME}:${TAG} ." 
