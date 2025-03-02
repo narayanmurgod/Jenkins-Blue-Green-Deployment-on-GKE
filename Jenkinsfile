@@ -65,7 +65,8 @@ pipeline {
                     'app-deployment-green.yml'
 
                     sh "gcloud container clusters get-credentials ${CLUSTER_NAME} --location ${location} --project ${PROJECT_ID}"
-                    sh "kubectl apply -f ${deploymentFile}" // Only apply the deployment, not the service
+                    sh "kubectl apply -f ${deploymentFile}" 
+                    sh "kubectl apply -f colour-service.yml"// Only apply the deployment, not the service
                 }
             }
         }
