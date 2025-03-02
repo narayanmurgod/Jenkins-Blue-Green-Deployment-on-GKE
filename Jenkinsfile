@@ -13,7 +13,7 @@ pipeline {
         //SCANNER_HOME = tool 'sonar-scanner'
         location = "us-central1"
         CLUSTER_NAME = "main-cluster"
-        PROJECT_ID = "cts05-murgod"
+        PROJECT_ID = "probable-pager-452507-d4"
         GOOGLE_APPLICATION_CREDENTIALS = credentials('default-sa-key')
     }
 
