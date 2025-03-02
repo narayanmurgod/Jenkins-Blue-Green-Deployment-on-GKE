@@ -61,23 +61,24 @@ pipeline {
             steps {
                 script {
                     def deploymentFile = params.DEPLOY_ENV == 'blue' ? 
-                        'app-deployment-blue.yml' : 
-                        'app-deployment-green.yml'
+                    'app-deployment-blue.yml' : 
+                    'app-deployment-green.yml'
 
                     sh "gcloud container clusters get-credentials ${CLUSTER_NAME} --location ${location} --project ${PROJECT_ID}"
-                    sh "kubectl apply -f ${deploymentFile}"
-                    sh "kubectl apply -f colour-service.yml"
+                    sh "kubectl apply -f ${deploymentFile}" // Only apply the deployment, not the service
                 }
             }
         }
-        
+
         stage('Switch Traffic') {
             when { expression { return params.SWITCH_TRAFFIC } }
             steps {
                 script {
+
                     sh """
-                        kubectl patch service colour-service -p '{"spec":{"selector":{"version":"${params.DEPLOY_ENV}"}}}'
-                    """          
+                    kubectl patch service colour-service -p '{"spec":{"selector":{"version":"${params.DEPLOY_ENV}"}}}'
+                    """
+
                 }
             }
         }
