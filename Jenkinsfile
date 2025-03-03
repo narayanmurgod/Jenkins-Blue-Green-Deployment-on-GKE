@@ -10,7 +10,6 @@ pipeline {
     environment {
         IMAGE_NAME = "thenameisnani/python-app"
         TAG = "${params.DOCKER_TAG}"
-        //SCANNER_HOME = tool 'sonar-scanner'
         location = "us-central1"
         CLUSTER_NAME = "main-cluster"
         PROJECT_ID = "probable-pager-452507-d4"
@@ -24,13 +23,6 @@ pipeline {
             }
         }
         
-        //stage('SonarQube Analysis') {
-            //steps {
-                //withSonarQubeEnv('sonar') {
-                    //sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=python-app"
-                //}
-            //}
-        //}
         
         stage('Docker Build') {
             steps { 
@@ -38,14 +30,6 @@ pipeline {
             }
         }
         
-        //stage('Trivy Scan') {
-           // environment {
-                //TRIVY_DISABLE_VEX_NOTICE = "true"
-            //}
-            //steps { 
-                //sh script: "trivy image --exit-code 0 ${IMAGE_NAME}:${TAG}", returnStatus: true 
-            //}
-        //}
         
         stage('Docker Push Image') {
             steps {

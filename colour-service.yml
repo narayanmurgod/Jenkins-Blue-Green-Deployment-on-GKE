@@ -9,4 +9,4 @@ spec:
     targetPort: 5000
   selector:
     app: python-app
-    version: blue  # Initial active version
+    version: blue  
